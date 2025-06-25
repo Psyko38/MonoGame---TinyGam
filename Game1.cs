@@ -30,6 +30,7 @@ public class Game1 : Game
     private SpriteFont font;
     private Vector2 _GrideXY;
     private Vector2 _GrideSize;
+    private KeyboardState previousKeyboardState;
 
     public Game1()
     {
@@ -150,6 +151,8 @@ public class Game1 : Game
             File.WriteAllText("map.txt", string.Join("\n", lines));
         }
 
+        KeyboardState currentKeyboardState = Keyboard.GetState();
+
         _GrideXY.X = (int)
             Math.Abs(
                 Math.Round(
@@ -209,6 +212,22 @@ public class Game1 : Game
             }
         }
 
+        if (currentKeyboardState.IsKeyDown(Keys.Left) && previousKeyboardState.IsKeyUp(Keys.Left))
+        {
+            if (_Upscale > 0.6)
+            {
+                _Upscale -= (float)0.1;
+            }
+        }
+
+        if (currentKeyboardState.IsKeyDown(Keys.Right) && previousKeyboardState.IsKeyUp(Keys.Right))
+        {
+            if (_Upscale < 10)
+            {
+                _Upscale += (float)0.1;
+            }
+        }
+
         if (Keyboard.GetState().IsKeyDown(Keys.D1))
         {
             Edit(0);
@@ -234,6 +253,7 @@ public class Game1 : Game
                 - _Tree.Height
         );
 
+        previousKeyboardState = currentKeyboardState;
         base.Update(gameTime);
     }
 
@@ -372,6 +392,13 @@ public class Game1 : Game
             font,
             $"Gride Size - X: {_GrideSize.X}, Y: {_GrideSize.Y}",
             new Vector2(10, 200), //ok
+            Color.Yellow
+        );
+
+        _spriteBatch.DrawString(
+            font,
+            $"Upscale - {_Upscale}",
+            new Vector2(10, 250), //ok
             Color.Yellow
         );
 

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SourceFileCollection xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Profile>Reach</Profile>
+  <Platform>DesktopGL</Platform>
+  <Config />
+  <SourceFiles>
+    <File>C:/Users/mbanzet/Documents/C/game/Content/Basic.png</File>
+    <File>C:/Users/mbanzet/Documents/C/game/Content/Derrier.png</File>
+    <File>C:/Users/mbanzet/Documents/C/game/Content/Grass.png</File>
+    <File>C:/Users/mbanzet/Documents/C/game/Content/MyFont.spritefont</File>
+    <File>C:/Users/mbanzet/Documents/C/game/Content/Profile.png</File>
+    <File>C:/Users/mbanzet/Documents/C/game/Content/Send.png</File>
+    <File>C:/Users/mbanzet/Documents/C/game/Content/Tree.png</File>
+    <File>C:/Users/mbanzet/Documents/C/game/Content/Water.png</File>
+  </SourceFiles>
+  <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+  </DestFiles>
+</SourceFileCollection>

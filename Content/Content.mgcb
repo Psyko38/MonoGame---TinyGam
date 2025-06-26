@@ -25,6 +25,12 @@
 /processorParam:TextureFormat=Color
 /build:Basic.png
 
+#begin Cherry Coke - Cody O'Quinn - 01 Cherry Coke.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Cherry Coke - Cody O'Quinn - 01 Cherry Coke.mp3
+
 #begin Derrier.png
 /importer:TextureImporter
 /processor:TextureProcessor

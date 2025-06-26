@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\mbanzet\\Documents\\C\\game\\game.csproj": {}
+    "E:\\Buro\\Dossier\\Html\\Repo\\MonoGame---TinyGam\\MonoGame---TinyGam\\game.csproj": {}
   },
   "projects": {
-    "C:\\Users\\mbanzet\\Documents\\C\\game\\game.csproj": {
+    "E:\\Buro\\Dossier\\Html\\Repo\\MonoGame---TinyGam\\MonoGame---TinyGam\\game.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\mbanzet\\Documents\\C\\game\\game.csproj",
+        "projectUniqueName": "E:\\Buro\\Dossier\\Html\\Repo\\MonoGame---TinyGam\\MonoGame---TinyGam\\game.csproj",
         "projectName": "game",
-        "projectPath": "C:\\Users\\mbanzet\\Documents\\C\\game\\game.csproj",
-        "packagesPath": "C:\\Users\\mbanzet\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\mbanzet\\Documents\\C\\game\\obj\\",
+        "projectPath": "E:\\Buro\\Dossier\\Html\\Repo\\MonoGame---TinyGam\\MonoGame---TinyGam\\game.csproj",
+        "packagesPath": "C:\\Users\\mattb\\.nuget\\packages\\",
+        "outputPath": "E:\\Buro\\Dossier\\Html\\Repo\\MonoGame---TinyGam\\MonoGame---TinyGam\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\mbanzet\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\mattb\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"

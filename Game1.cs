@@ -5,6 +5,7 @@ using System.IO;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 
 namespace game;
 
@@ -12,6 +13,7 @@ public class Game1 : Game
 {
     private float _Upscale;
     private float _PlayerSpeed;
+    private float _IsMenu;
     private GraphicsDeviceManager _graphics;
     private SpriteBatch _spriteBatch;
     private Texture2D _PlayerTexture;
@@ -31,6 +33,8 @@ public class Game1 : Game
     private Vector2 _GrideXY;
     private Vector2 _GrideSize;
     private KeyboardState previousKeyboardState;
+    private Song _BagrondAudio;
+    private Texture2D _Backgrond;
 
     public Game1()
     {
@@ -58,25 +62,30 @@ public class Game1 : Game
 
         _PlayerSpeed = 5;
 
-        try
+        if (File.Exists("map.txt"))
         {
-            using StreamReader reader = new("map.txt");
-            string text = reader.ReadToEnd();
-
-            string[] lines = text.Split('\n', StringSplitOptions.RemoveEmptyEntries);
-
-            foreach (string line in lines)
+            try
             {
-                string[] items = line.Trim().Split(' ', StringSplitOptions.RemoveEmptyEntries);
-                Map.Add(items);
+                using StreamReader reader = new("map.txt");
+                string text = reader.ReadToEnd();
+
+                string[] lines = text.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+
+                foreach (string line in lines)
+                {
+                    string[] items = line.Trim().Split(' ', StringSplitOptions.RemoveEmptyEntries);
+                    Map.Add(items);
+                }
             }
-        }
-        catch (IOException e)
-        {
-            Console.WriteLine(e.Message);
+            catch (IOException e)
+            {
+                Console.WriteLine(e.Message);
+            }
         }
 
         _GrideSize = new Vector2(Map[0].Length, Map.Count);
+
+        _IsMenu = 1;
 
         base.Initialize();
     }
@@ -108,6 +117,14 @@ public class Game1 : Game
             2 * _GrideBasicTextur.Width * _Upscale * -1,
             2 * _GrideBasicTextur.Height * _Upscale * -1
         );
+
+        _BagrondAudio = Content.Load<Song>("Cherry Coke - Cody O'Quinn - 01 Cherry Coke");
+
+        MediaPlayer.Play(_BagrondAudio);
+        MediaPlayer.IsRepeating = true;
+
+        _Backgrond = new Texture2D(GraphicsDevice, 1, 1);
+        _Backgrond.SetData([Color.White]);
     }
 
     protected override void Update(GameTime gameTime)
@@ -171,76 +188,92 @@ public class Game1 : Game
 
         _PlayerTexture = _PlayerBasicTexture;
 
-        if (Keyboard.GetState().IsKeyDown(Keys.W))
+        if (_IsMenu == 0)
         {
-            System.Diagnostics.Debug.WriteLine("test");
-        }
-
-        if (Keyboard.GetState().IsKeyDown(Keys.Z))
-        {
-            if (_GrideXY.Y > 0)
+            if (Keyboard.GetState().IsKeyDown(Keys.W))
             {
-                _CamXY.Y += _PlayerSpeed;
-                _PlayerTexture = _PlayerDerrierTexture;
+                System.Diagnostics.Debug.WriteLine("test");
+            }
+
+            if (Keyboard.GetState().IsKeyDown(Keys.Z))
+            {
+                if (_GrideXY.Y > 0)
+                {
+                    _CamXY.Y += _PlayerSpeed;
+                    _PlayerTexture = _PlayerDerrierTexture;
+                }
+            }
+
+            if (Keyboard.GetState().IsKeyDown(Keys.S))
+            {
+                if (_GrideXY.Y < _GrideSize.Y - 1)
+                {
+                    _CamXY.Y -= _PlayerSpeed;
+                    _PlayerTexture = _PlayerBasicTexture;
+                }
+            }
+
+            if (Keyboard.GetState().IsKeyDown(Keys.Q))
+            {
+                if (_GrideXY.X > 0)
+                {
+                    _CamXY.X += _PlayerSpeed;
+                    _PlayerTexture = _PlayerProfileTexture;
+                }
+            }
+
+            if (Keyboard.GetState().IsKeyDown(Keys.D))
+            {
+                if (_GrideXY.X < _GrideSize.X - 1)
+                {
+                    _CamXY.X -= _PlayerSpeed;
+                    _PlayerTexture = _PlayerProfileTexture;
+                }
+            }
+
+            if (
+                currentKeyboardState.IsKeyDown(Keys.Left)
+                && previousKeyboardState.IsKeyUp(Keys.Left)
+            )
+            {
+                if (_Upscale > 0.6)
+                {
+                    _Upscale -= (float)0.1;
+                }
+            }
+
+            if (
+                currentKeyboardState.IsKeyDown(Keys.Right)
+                && previousKeyboardState.IsKeyUp(Keys.Right)
+            )
+            {
+                if (_Upscale < 10)
+                {
+                    _Upscale += (float)0.1;
+                }
+            }
+
+            if (Keyboard.GetState().IsKeyDown(Keys.D1))
+            {
+                Edit(0);
+            }
+
+            if (Keyboard.GetState().IsKeyDown(Keys.D2))
+            {
+                Edit(1);
+            }
+
+            if (Keyboard.GetState().IsKeyDown(Keys.D3))
+            {
+                Edit(2);
             }
         }
-
-        if (Keyboard.GetState().IsKeyDown(Keys.S))
+        else
         {
-            if (_GrideXY.Y < _GrideSize.Y - 1)
+            if (Keyboard.GetState().IsKeyDown(Keys.Enter))
             {
-                _CamXY.Y -= _PlayerSpeed;
-                _PlayerTexture = _PlayerBasicTexture;
+                _IsMenu = 0;
             }
-        }
-
-        if (Keyboard.GetState().IsKeyDown(Keys.Q))
-        {
-            if (_GrideXY.X > 0)
-            {
-                _CamXY.X += _PlayerSpeed;
-                _PlayerTexture = _PlayerProfileTexture;
-            }
-        }
-
-        if (Keyboard.GetState().IsKeyDown(Keys.D))
-        {
-            if (_GrideXY.X < _GrideSize.X - 1)
-            {
-                _CamXY.X -= _PlayerSpeed;
-                _PlayerTexture = _PlayerProfileTexture;
-            }
-        }
-
-        if (currentKeyboardState.IsKeyDown(Keys.Left) && previousKeyboardState.IsKeyUp(Keys.Left))
-        {
-            if (_Upscale > 0.6)
-            {
-                _Upscale -= (float)0.1;
-            }
-        }
-
-        if (currentKeyboardState.IsKeyDown(Keys.Right) && previousKeyboardState.IsKeyUp(Keys.Right))
-        {
-            if (_Upscale < 10)
-            {
-                _Upscale += (float)0.1;
-            }
-        }
-
-        if (Keyboard.GetState().IsKeyDown(Keys.D1))
-        {
-            Edit(0);
-        }
-
-        if (Keyboard.GetState().IsKeyDown(Keys.D2))
-        {
-            Edit(1);
-        }
-
-        if (Keyboard.GetState().IsKeyDown(Keys.D3))
-        {
-            Edit(2);
         }
 
         _TreePos = new Vector2(
@@ -262,6 +295,7 @@ public class Game1 : Game
         GraphicsDevice.Clear(Color.CornflowerBlue);
 
         // TODO: Add your drawing code here
+
         _spriteBatch.Begin(
             SpriteSortMode.Deferred,
             BlendState.AlphaBlend,
@@ -360,47 +394,103 @@ public class Game1 : Game
             );
         }
 
-        _spriteBatch.DrawString(
-            font,
-            $"Cam - X: {_CamXY.X}, Y: {_CamXY.Y}",
-            new Vector2(10, 10), //ok
-            Color.Yellow
-        );
+        if (_IsMenu == 0)
+        {
+            _spriteBatch.DrawString(
+                font,
+                $"Cam - X: {_CamXY.X}, Y: {_CamXY.Y}",
+                new Vector2(10, 10), //ok
+                Color.White
+            );
 
-        _spriteBatch.DrawString(
-            font,
-            $"Block - X: {_GrideXY.X}, Y: {_GrideXY.Y}",
-            new Vector2(10, 50), //ok
-            Color.Yellow
-        );
+            _spriteBatch.DrawString(
+                font,
+                $"Block - X: {_GrideXY.X}, Y: {_GrideXY.Y}",
+                new Vector2(10, 50), //ok
+                Color.White
+            );
 
-        _spriteBatch.DrawString(
-            font,
-            $"Map Scale - X: {_graphics.PreferredBackBufferWidth / 2}, Y: {_graphics.PreferredBackBufferHeight / 2}",
-            new Vector2(10, 100), //ok
-            Color.Yellow
-        );
+            _spriteBatch.DrawString(
+                font,
+                $"Map Scale - X: {_graphics.PreferredBackBufferWidth / 2}, Y: {_graphics.PreferredBackBufferHeight / 2}",
+                new Vector2(10, 100), //ok
+                Color.White
+            );
 
-        _spriteBatch.DrawString(
-            font,
-            $"Tree Pos - X: {_TreePos.X}, Y: {_TreePos.Y}",
-            new Vector2(10, 150), //ok
-            Color.Yellow
-        );
+            _spriteBatch.DrawString(
+                font,
+                $"Tree Pos - X: {_TreePos.X}, Y: {_TreePos.Y}",
+                new Vector2(10, 150), //ok
+                Color.White
+            );
 
-        _spriteBatch.DrawString(
-            font,
-            $"Gride Size - X: {_GrideSize.X}, Y: {_GrideSize.Y}",
-            new Vector2(10, 200), //ok
-            Color.Yellow
-        );
+            _spriteBatch.DrawString(
+                font,
+                $"Gride Size - X: {_GrideSize.X}, Y: {_GrideSize.Y}",
+                new Vector2(10, 200), //ok
+                Color.White
+            );
 
-        _spriteBatch.DrawString(
-            font,
-            $"Upscale - {_Upscale}",
-            new Vector2(10, 250), //ok
-            Color.Yellow
-        );
+            _spriteBatch.DrawString(
+                font,
+                $"Upscale - {_Upscale}",
+                new Vector2(10, 250), //ok
+                Color.White
+            );
+        }
+
+        if (_IsMenu == 1)
+        {
+            _spriteBatch.End();
+            _spriteBatch.Begin();
+
+            _spriteBatch.Draw(
+                _Backgrond,
+                new Rectangle(
+                    0,
+                    0,
+                    _graphics.PreferredBackBufferWidth,
+                    _graphics.PreferredBackBufferHeight
+                ),
+                Color.Black * 0.9f
+            );
+
+            string text = "Editor Game";
+            Vector2 textSize = font.MeasureString(text);
+
+            _spriteBatch.DrawString(
+                font,
+                $"{text}",
+                new Vector2(
+                    (_graphics.PreferredBackBufferWidth - textSize.X * _Upscale) / 2,
+                    (_graphics.PreferredBackBufferHeight - textSize.Y * _Upscale) / 2
+                ), //ok
+                Color.White,
+                0f,
+                Vector2.Zero,
+                _Upscale,
+                SpriteEffects.None,
+                0f
+            );
+
+            text = "Press Enter to Play";
+            textSize = font.MeasureString(text);
+
+            _spriteBatch.DrawString(
+                font,
+                $"{text}",
+                new Vector2(
+                    (_graphics.PreferredBackBufferWidth - textSize.X * (_Upscale - 1)) / 2,
+                    (_graphics.PreferredBackBufferHeight - textSize.Y * _Upscale - 1) / (int)1.1
+                ), //ok
+                Color.White,
+                0f,
+                Vector2.Zero,
+                _Upscale - 1,
+                SpriteEffects.None,
+                0f
+            );
+        }
 
         _spriteBatch.End();
 

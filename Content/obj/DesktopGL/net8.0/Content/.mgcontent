@@ -4,16 +4,18 @@
   <Platform>DesktopGL</Platform>
   <Config />
   <SourceFiles>
-    <File>C:/Users/mbanzet/Documents/C/game/Content/Basic.png</File>
-    <File>C:/Users/mbanzet/Documents/C/game/Content/Derrier.png</File>
-    <File>C:/Users/mbanzet/Documents/C/game/Content/Grass.png</File>
-    <File>C:/Users/mbanzet/Documents/C/game/Content/MyFont.spritefont</File>
-    <File>C:/Users/mbanzet/Documents/C/game/Content/Profile.png</File>
-    <File>C:/Users/mbanzet/Documents/C/game/Content/Send.png</File>
-    <File>C:/Users/mbanzet/Documents/C/game/Content/Tree.png</File>
-    <File>C:/Users/mbanzet/Documents/C/game/Content/Water.png</File>
+    <File>E:/Buro/Dossier/Html/Repo/MonoGame---TinyGam/Content/Basic.png</File>
+    <File>E:/Buro/Dossier/Html/Repo/MonoGame---TinyGam/Content/Cherry Coke - Cody O'Quinn - 01 Cherry Coke.mp3</File>
+    <File>E:/Buro/Dossier/Html/Repo/MonoGame---TinyGam/Content/Derrier.png</File>
+    <File>E:/Buro/Dossier/Html/Repo/MonoGame---TinyGam/Content/Grass.png</File>
+    <File>E:/Buro/Dossier/Html/Repo/MonoGame---TinyGam/Content/MyFont.spritefont</File>
+    <File>E:/Buro/Dossier/Html/Repo/MonoGame---TinyGam/Content/Profile.png</File>
+    <File>E:/Buro/Dossier/Html/Repo/MonoGame---TinyGam/Content/Send.png</File>
+    <File>E:/Buro/Dossier/Html/Repo/MonoGame---TinyGam/Content/Tree.png</File>
+    <File>E:/Buro/Dossier/Html/Repo/MonoGame---TinyGam/Content/Water.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

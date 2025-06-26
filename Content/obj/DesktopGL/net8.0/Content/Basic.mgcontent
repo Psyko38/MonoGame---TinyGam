@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <SourceFile>C:/Users/mbanzet/Documents/C/game/Content/Basic.png</SourceFile>
-  <SourceTime>2025-06-23T16:33:51.3681745+02:00</SourceTime>
-  <DestFile>C:/Users/mbanzet/Documents/C/game/Content/bin/DesktopGL/Content/Basic.xnb</DestFile>
-  <DestTime>2025-06-23T16:34:56.8761621+02:00</DestTime>
+  <SourceFile>E:/Buro/Dossier/Html/Repo/MonoGame---TinyGam/Content/Basic.png</SourceFile>
+  <SourceTime>2025-06-26T14:00:24.5720745+02:00</SourceTime>
+  <DestFile>E:/Buro/Dossier/Html/Repo/MonoGame---TinyGam/Content/bin/DesktopGL/Content/Basic.xnb</DestFile>
+  <DestTime>2025-06-26T14:08:21.2731056+02:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2025-06-02T12:31:02+02:00</ImporterTime>
   <Processor>TextureProcessor</Processor>

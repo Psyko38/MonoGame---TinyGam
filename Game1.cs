@@ -62,25 +62,58 @@ public class Game1 : Game
 
         _PlayerSpeed = 5;
 
-        if (File.Exists("map.txt"))
+        if (!File.Exists("map.txt"))
         {
-            try
+            var noise = new FastNoiseLite();
+            noise.SetSeed(Environment.TickCount);
+            noise.SetNoiseType(FastNoiseLite.NoiseType.Perlin);
+            noise.SetFrequency(0.2f); // élévée = plus aléatoire / faible = ordoée belle map
+
+            int width = 100;
+            int height = 100;
+            int[,] newMap = new int[width, height];
+
+            for (int x = 0; x < width; x++)
             {
-                using StreamReader reader = new("map.txt");
-                string text = reader.ReadToEnd();
-
-                string[] lines = text.Split('\n', StringSplitOptions.RemoveEmptyEntries);
-
-                foreach (string line in lines)
+                for (int y = 0; y < height; y++)
                 {
-                    string[] items = line.Trim().Split(' ', StringSplitOptions.RemoveEmptyEntries);
-                    Map.Add(items);
+                    float noiseValue = noise.GetNoise(x, y);
+                    if (noiseValue < -0.1f)
+                        newMap[x, y] = 0; // Eau
+                    else if (noiseValue < 0.1f)
+                        newMap[x, y] = 2; // Sable
+                    else
+                        newMap[x, y] = 1; // Herbe
                 }
             }
-            catch (IOException e)
+
+            using (StreamWriter writer = new StreamWriter("map.txt"))
             {
-                Console.WriteLine(e.Message);
+                for (int y = 0; y < height; y++)
+                {
+                    for (int x = 0; x < width; x++)
+                    {
+                        writer.Write(newMap[x, y] + " ");
+                    }
+                    writer.WriteLine();
+                }
             }
+        }
+
+        try
+        {
+            using StreamReader reader = new StreamReader("map.txt");
+            Map.Clear();
+            string line;
+            while ((line = reader.ReadLine()) != null)
+            {
+                string[] items = line.Trim().Split(' ', StringSplitOptions.RemoveEmptyEntries);
+                Map.Add(items);
+            }
+        }
+        catch (IOException e)
+        {
+            Console.WriteLine(e.Message);
         }
 
         _GrideSize = new Vector2(Map[0].Length, Map.Count);
@@ -400,42 +433,42 @@ public class Game1 : Game
                 font,
                 $"Cam - X: {_CamXY.X}, Y: {_CamXY.Y}",
                 new Vector2(10, 10), //ok
-                Color.White
+                Color.Black
             );
 
             _spriteBatch.DrawString(
                 font,
                 $"Block - X: {_GrideXY.X}, Y: {_GrideXY.Y}",
                 new Vector2(10, 50), //ok
-                Color.White
+                Color.Black
             );
 
             _spriteBatch.DrawString(
                 font,
                 $"Map Scale - X: {_graphics.PreferredBackBufferWidth / 2}, Y: {_graphics.PreferredBackBufferHeight / 2}",
                 new Vector2(10, 100), //ok
-                Color.White
+                Color.Black
             );
 
             _spriteBatch.DrawString(
                 font,
                 $"Tree Pos - X: {_TreePos.X}, Y: {_TreePos.Y}",
                 new Vector2(10, 150), //ok
-                Color.White
+                Color.Black
             );
 
             _spriteBatch.DrawString(
                 font,
                 $"Gride Size - X: {_GrideSize.X}, Y: {_GrideSize.Y}",
                 new Vector2(10, 200), //ok
-                Color.White
+                Color.Black
             );
 
             _spriteBatch.DrawString(
                 font,
                 $"Upscale - {_Upscale}",
                 new Vector2(10, 250), //ok
-                Color.White
+                Color.Black
             );
         }
 
